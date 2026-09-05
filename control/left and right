@@ -1,0 +1,20 @@
+extends CharacterBody2D
+
+# Configuración de velocidad horizontal
+@export var SPEED = 300.0
+
+func _physics_process(delta):
+	# 1. Obtener la dirección horizontal (-1 para izquierda, 1 para derecha, 0 para detenido)
+	var direction = Input.get_axis("ui_left", "ui_right")
+
+	# 2. Aplicar la velocidad en el eje X
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	# 3. Mantener la velocidad vertical completamente fija en 0
+	velocity.y = 0
+
+	# 4. Aplicar el movimiento
+	move_and_slide()
